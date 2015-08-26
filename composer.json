@@ -1,0 +1,19 @@
+{
+    "name": "tshafer/laravel-questionable",
+    "description": "Questionable Polymorphic Eloquent Models for Laravel 5",
+    "require": {
+        "php": ">=5.5.9",
+        "tshafer/laravel-service-provider": "1.0.*@dev",
+        "tshafer/laravel-database": "1.0.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tshafer\\Questionable\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
