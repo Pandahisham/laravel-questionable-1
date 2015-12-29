@@ -1,17 +1,14 @@
 <?php
 
-    namespace Tshafer\Questionable;
+namespace Tshafer\Questionable;
 
-    use Tshafer\ServiceProvider\ServiceProvider as BaseProvider;
+use Tshafer\ServiceProvider\ServiceProvider as BaseProvider;
 
     /**
-     * Class ServiceProvider
-     *
-     * @package Tshafer\Questionable
+     * Class ServiceProvider.
      */
     class ServiceProvider extends BaseProvider
     {
-
         /**
          * @var string
          */
@@ -22,7 +19,7 @@
          */
         public function boot()
         {
-            $this->setup( __DIR__ )
+            $this->setup(__DIR__)
                  ->publishMigrations();
         }
     }
