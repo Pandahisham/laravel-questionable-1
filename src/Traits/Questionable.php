@@ -1,8 +1,8 @@
 <?php
 
-    namespace Tshafer\Questionable\Traits;
+namespace Tshafer\Questionable\Traits;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
     use Tshafer\Questionable\Models\Question;
 
     /**
@@ -10,13 +10,12 @@
      */
     trait Questionable
     {
-
         /**
          * @return \Illuminate\Database\Eloquent\Relations\MorphMany
          */
         public function questions()
         {
-            return $this->morphMany( Question::class, 'questionable' );
+            return $this->morphMany(Question::class, 'questionable');
         }
 
         /**
@@ -25,9 +24,9 @@
          *
          * @return static
          */
-        public function createQuestion( $data, Model $author )
+        public function createQuestion($data, Model $author)
         {
-            return ( new Question() )->createQuestion( $this, $data, $author );
+            return ( new Question() )->createQuestion($this, $data, $author);
         }
 
         /**
@@ -36,9 +35,9 @@
          *
          * @return mixed
          */
-        public function updateQuestion( $id, $data )
+        public function updateQuestion($id, $data)
         {
-            return ( new Question() )->updateQuestion( $id, $data );
+            return ( new Question() )->updateQuestion($id, $data);
         }
 
         /**
@@ -46,8 +45,8 @@
          *
          * @return mixed
          */
-        public function deleteQuestion( $id )
+        public function deleteQuestion($id)
         {
-            return ( new Question() )->deleteQuestion( $id );
+            return ( new Question() )->deleteQuestion($id);
         }
     }

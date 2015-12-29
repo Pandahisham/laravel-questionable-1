@@ -1,26 +1,25 @@
 <?php
 
-    namespace Tshafer\Questionable\Models;
+namespace Tshafer\Questionable\Models;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
     /**
      * Class Answer.
      */
     class Answer extends Model
     {
-
         /**
          * @var array
          */
-        protected $guarded = [ 'id', 'created_at', 'updated_at' ];
+        protected $guarded = ['id', 'created_at', 'updated_at'];
 
         /**
          * @return \Illuminate\Database\Eloquent\Relations\MorphTo
          */
         public function author()
         {
-            return $this->morphTo( 'author' );
+            return $this->morphTo('author');
         }
 
         /**
@@ -28,7 +27,7 @@
          */
         public function question()
         {
-            return $this->belongsTo( Question::class );
+            return $this->belongsTo(Question::class);
         }
 
         /**
@@ -36,9 +35,9 @@
          */
         public function markAsSolution()
         {
-            $this->question()->markAsSolved( $this->id );
+            $this->question()->markAsSolved($this->id);
 
-            return $this->update( [ 'is_solution' => true ] );
+            return $this->update(['is_solution' => true]);
         }
 
         /**
@@ -48,15 +47,15 @@
          *
          * @return static
          */
-        public function createAnswer( Model $question, $data, Model $author )
+        public function createAnswer(Model $question, $data, Model $author)
         {
             $answer = new static();
-            $answer->fill( array_merge( $data, [
-                'author_id'   => $author->id,
-                'author_type' => get_class( $author ),
-            ] ) );
+            $answer->fill(array_merge($data, [
+                'author_id' => $author->id,
+                'author_type' => get_class($author),
+            ]));
 
-            $question->anwers()->save( $answer );
+            $question->anwers()->save($answer);
 
             return $answer;
         }
@@ -67,10 +66,10 @@
          *
          * @return mixed
          */
-        public function updateAnswer( $id, $data )
+        public function updateAnswer($id, $data)
         {
-            $answer = static::find( $id );
-            $answer->update( $data );
+            $answer = static::find($id);
+            $answer->update($data);
 
             return $answer;
         }
@@ -80,8 +79,8 @@
          *
          * @return mixed
          */
-        public function deleteAnswer( $id )
+        public function deleteAnswer($id)
         {
-            return static::find( $id )->delete();
+            return static::find($id)->delete();
         }
     }

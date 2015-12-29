@@ -1,19 +1,18 @@
 <?php
 
-    namespace Tshafer\Questionable\Models;
+namespace Tshafer\Questionable\Models;
 
-    use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
     /**
      * Class Question.
      */
     class Question extends Model
     {
-
         /**
          * @var array
          */
-        protected $guarded = [ 'id', 'created_at', 'updated_at' ];
+        protected $guarded = ['id', 'created_at', 'updated_at'];
 
         /**
          * @return \Illuminate\Database\Eloquent\Relations\MorphTo
@@ -28,7 +27,7 @@
          */
         public function author()
         {
-            return $this->morphTo( 'author' );
+            return $this->morphTo('author');
         }
 
         /**
@@ -36,7 +35,7 @@
          */
         public function answers()
         {
-            return $this->hasMany( Answer::class );
+            return $this->hasMany(Answer::class);
         }
 
         /**
@@ -44,7 +43,7 @@
          */
         public function bestAnswer()
         {
-            return $this->hasOne( Answer::class, 'best_answer_id' );
+            return $this->hasOne(Answer::class, 'best_answer_id');
         }
 
         /**
@@ -54,15 +53,15 @@
          *
          * @return static
          */
-        public function createQuestion( Model $questionable, $data, Model $author )
+        public function createQuestion(Model $questionable, $data, Model $author)
         {
             $question = new static();
-            $question->fill( array_merge( $data, [
-                'author_id'   => $author->id,
-                'author_type' => get_class( $author ),
-            ] ) );
+            $question->fill(array_merge($data, [
+                'author_id' => $author->id,
+                'author_type' => get_class($author),
+            ]));
 
-            $questionable->questions()->save( $question );
+            $questionable->questions()->save($question);
 
             return $question;
         }
@@ -73,10 +72,10 @@
          *
          * @return mixed
          */
-        public function updateQuestion( $id, $data )
+        public function updateQuestion($id, $data)
         {
-            $question = static::find( $id );
-            $question->update( $data );
+            $question = static::find($id);
+            $question->update($data);
 
             return $question;
         }
@@ -86,9 +85,9 @@
          *
          * @return mixed
          */
-        public function deleteQuestion( $id )
+        public function deleteQuestion($id)
         {
-            return static::find( $id )->delete();
+            return static::find($id)->delete();
         }
 
         /**
@@ -97,9 +96,9 @@
          *
          * @return static
          */
-        public function createAnswer( $data, Model $author )
+        public function createAnswer($data, Model $author)
         {
-            return ( new Answer() )->createAnswer( $this, $data, $author );
+            return ( new Answer() )->createAnswer($this, $data, $author);
         }
 
         /**
@@ -108,9 +107,9 @@
          *
          * @return mixed
          */
-        public function updateAnswer( $id, $data )
+        public function updateAnswer($id, $data)
         {
-            return ( new Answer() )->updateAnswer( $id, $data );
+            return ( new Answer() )->updateAnswer($id, $data);
         }
 
         /**
@@ -118,19 +117,19 @@
          *
          * @return mixed
          */
-        public function deleteAnswer( $id )
+        public function deleteAnswer($id)
         {
-            return ( new Answer() )->deleteAnswer( $id );
+            return ( new Answer() )->deleteAnswer($id);
         }
 
         /**
          * @param $answerId
          */
-        public function markAsSolved( $answerId )
+        public function markAsSolved($answerId)
         {
-            $this->update( [
-                'is_answered'    => true,
+            $this->update([
+                'is_answered' => true,
                 'best_answer_id' => $answerId,
-            ] );
+            ]);
         }
     }
